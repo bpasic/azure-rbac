@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actions": {
+            "type": "array",
+            "metadata": {
+                "description": "Array of actions for the roleDefinition."
+            }
+        },
+        "notActions": {
+            "type": "array",
+            "metadata": {
+                "description": "Array of notActions for the roleDefinition"
+            }
+        },
+        "roleName": {
+            "type": "string",
+            "metadata": {
+                "description": "Friendly name of the role definition."
+            }
+        },
+        "roleDescription": {
+            "type": "string",
+            "metadata": {
+                "description": "Detailed description of the role definition."
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "roleDefinitionName": "[guid(subscription().id, string(parameters('actions')), string(parameters('notActions')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/roleDefinitions",
+            "apiVersion": "2017-09-01",
+            "name": "[variables('roleDefinitionName')]",
+            "properties": {
+                "roleName": "[parameters('roleName')]",
+                "description": "[parameters('roleDescription')]",
+                "type": "customRole",
+                "permissions": [
+                    {
+                        "actions": "[parameters('actions')]",
+                        "notActions": "[parameters('notActions')]"
+                    }
+                ],
+                "assignableScopes": [
+                    "[subscription().id]"
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}

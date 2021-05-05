@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actions": {
+            "value": [
+                "Microsoft.Storage/*/read",
+                "Microsoft.Network/*/read",
+                "Microsoft.Compute/*/read",
+                "Microsoft.Compute/virtualMachines/start/action",
+                "Microsoft.Compute/virtualMachines/restart/action",
+                "Microsoft.Authorization/*/read",
+                "Microsoft.ResourceHealth/availabilityStatuses/read",
+                "Microsoft.Resources/subscriptions/resourceGroups/read",
+                "Microsoft.Insights/alertRules/*",
+                "Microsoft.Support/*"
+            ]
+        },
+        "notActions": {
+            "value": []
+        },
+        "roleName": {
+            "value": "Virtual Machine Operator" 
+        },
+        "roleDescription": {
+            "value": "Can monitor and restart virtual machines."
+        }
+    }
+}
